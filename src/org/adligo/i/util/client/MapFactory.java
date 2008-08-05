@@ -9,8 +9,13 @@ import java.util.HashMap;
  * @author scott
  *
  */
-public class MapFactory extends AbstractFactory {
-
+public class MapFactory  {
+	protected static I_Factory me;
+	
+	protected static void init(I_Factory in) throws Exception {
+		me = in;
+	}
+	
 	/**
 	 * 
 	 * @param The class you want to wrap (a Hashtable for J2ME or a Map for 

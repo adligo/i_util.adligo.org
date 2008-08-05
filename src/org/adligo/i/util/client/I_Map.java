@@ -10,7 +10,7 @@ package org.adligo.i.util.client;
  *
  */
 public interface I_Map {
-
+	I_Iterator getIterator();
 	void clear();
 	boolean containsKey(Object key); 
 	boolean containsValue(Object value);

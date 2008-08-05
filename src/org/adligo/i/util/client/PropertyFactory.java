@@ -1,7 +1,11 @@
 package org.adligo.i.util.client;
 
-public class PropertyFactory extends AbstractFactory  {
+public class PropertyFactory  {
+	protected static I_Factory me;
 	
+	protected static void init(I_Factory in) throws Exception {
+		me = in;
+	}
 	/**
 	 * 
 	 * 
@@ -10,12 +14,17 @@ public class PropertyFactory extends AbstractFactory  {
 	 * 
 	 * GWT relative to the html file that was loaded
 	 * 
+	 * @param listener a async callback that is available on both j2me and GWT
+	 * 
 	 * j2me and j2se relative to classpath
 	 * 
 	 * @return
 	 */
-	public static I_Map get(Object p) {
-		return (I_Map) me.createNew(p);
+	public static void get(Object p, I_Listener listener) {
+		ListenerValueObject params = new ListenerValueObject();
+		params.setValue(p);
+		params.setListener(listener);
+		me.createNew(params);
 	}	
 	
 }

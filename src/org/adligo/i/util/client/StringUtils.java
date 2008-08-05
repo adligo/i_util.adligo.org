@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class StringUtils {
 	public static final char EQUALS = '=';
-	public static final char UNIX_LINE_FEED = (char) "\n".getBytes()[0];
-	public static final char DOS_LINE_FEED = (char) "\r".getBytes()[0];
+	public static final char UNIX_LINE_FEED = (char) "\n".toCharArray()[0];
+	public static final char DOS_LINE_FEED = (char) "\r".toCharArray()[0];
 	private static final boolean SELF_LOG = false;
 	
 	/**
@@ -17,9 +17,7 @@ public class StringUtils {
 	 * 
 	 * @return
 	 */
-	public static I_Map parse(String p) {
-		I_Map map = MapFactory.get(new HashMap());
-		
+	public static void parse(String p, I_Map map) {
 		StringBuffer key = new StringBuffer();
     	StringBuffer val = new StringBuffer();
 		char [] chars = p.toCharArray();
@@ -52,6 +50,5 @@ public class StringUtils {
         		}
     		}
     	}
-		return map;
 	}
 }
