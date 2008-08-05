@@ -12,8 +12,6 @@ import java.util.HashMap;
 public class MapFactory extends AbstractFactory {
 
 	/**
-	 * see impl package to determine what name means!
-	 * ie gwt_util, j2me_util
 	 * 
 	 * @param The class you want to wrap (a Hashtable for J2ME or a Map for 
 	 * j2se and GWT)
