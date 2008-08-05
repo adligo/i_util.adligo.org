@@ -50,5 +50,7 @@ public class StringUtils {
         		}
     		}
     	}
+		map.put(key.toString(), val.toString());
 	}
+	
 }
