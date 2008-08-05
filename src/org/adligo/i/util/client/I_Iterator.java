@@ -9,9 +9,8 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public interface I_Iterator {
+public interface I_Iterator extends I_Wrapper {
 
 	public boolean hasNext();
 	public Object next();
-	public void remove();
 }

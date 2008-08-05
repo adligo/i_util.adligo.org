@@ -33,11 +33,7 @@ public class StringUtils {
     			inKey = false;
     		} else {
         		if (UNIX_LINE_FEED == c || DOS_LINE_FEED == c) {
-        			if (SELF_LOG) {
-            			System.out.println("putting '" + key.toString() + "','" +
-            					val.toString() + "'");
-        			}
-        			map.put(key.toString(), val.toString());
+        			addValue(map, key, val);
         			inKey = true;
         			key = new StringBuffer();
                 	val = new StringBuffer();
@@ -50,6 +46,14 @@ public class StringUtils {
         		}
     		}
     	}
+		addValue(map, key, val);
+	}
+
+	private static void addValue(I_Map map, StringBuffer key, StringBuffer val) {
+		if (SELF_LOG) {
+			System.out.println("putting '" + key.toString() + "','" +
+					val.toString() + "'");
+		}
 		map.put(key.toString(), val.toString());
 	}
 	

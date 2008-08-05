@@ -9,19 +9,18 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public interface I_Map {
+public interface I_Map extends I_Wrapper {
 	I_Iterator getIterator();
+	I_Iterator keys();
+	
 	void clear();
 	boolean containsKey(Object key); 
 	boolean containsValue(Object value);
-	Object entrySet();
 	boolean equals(Object o);
 	Object get(Object key);
 	boolean isEmpty(); 
-	Object keySet();
+	
     Object put(Object key, Object value);
-    void putAll(I_Map t);
     Object remove(Object key);
     int size();
-    Object values();
 }

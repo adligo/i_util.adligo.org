@@ -7,7 +7,7 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public interface I_Collection {
+public interface I_Collection extends I_Wrapper {
 	public boolean add(Object o);
 	public boolean remove(Object o);
 	public void clear();
