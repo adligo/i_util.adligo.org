@@ -8,6 +8,7 @@ package org.adligo.i.util.client;
  *
  */
 public interface I_Collection extends I_Wrapper {
+	public int size();
 	public boolean add(Object o);
 	public boolean remove(Object o);
 	public void clear();
