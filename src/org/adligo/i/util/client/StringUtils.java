@@ -57,7 +57,7 @@ public class StringUtils {
 		map.put(key.toString(), val.toString());
 	}
 	
-	public boolean isEmpty(String p) {
+	public static  boolean isEmpty(String p) {
 		if (p == null) {
 			return true;
 		}
