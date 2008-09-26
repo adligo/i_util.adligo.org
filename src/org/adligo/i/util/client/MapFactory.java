@@ -4,8 +4,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * actually a I_Hashtable factory
- * use your own caching just a wrapper
+ * actually a Map or Hashtable factory
+ * depending on which platform your using
+ * 
  * @author scott
  *
  */
