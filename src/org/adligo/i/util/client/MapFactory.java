@@ -25,7 +25,12 @@ public class MapFactory  {
 	 */
 	public static I_Map get(Object p) {
 		return (I_Map) me.createNew(p);
-	}	
+	}
+	
+	
+	public static I_ImutableMap create(I_Map p) {
+		return (I_ImutableMap) me.createNew(p);
+	}
 	
 	/**
 	 * create a default map implementation
