@@ -1,6 +1,6 @@
 package org.adligo.i.util.client;
 
-public interface I_ImutableMap {
+public interface I_ImmutableMap {
 	I_Iterator getIterator();
 	I_Iterator keys();
 	int size();

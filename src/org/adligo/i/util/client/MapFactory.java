@@ -30,8 +30,8 @@ public class MapFactory  {
 	}
 	
 	
-	public static I_ImutableMap create(I_Map p) {
-		return (I_ImutableMap) imute_me.createNew(p);
+	public static I_ImmutableMap create(I_Map p) {
+		return (I_ImmutableMap) imute_me.createNew(p);
 	}
 	
 	/**

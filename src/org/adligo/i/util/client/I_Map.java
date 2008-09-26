@@ -9,7 +9,7 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public interface I_Map extends I_ImutableMap, I_Wrapper {
+public interface I_Map extends I_ImmutableMap, I_Wrapper {
 	void clear();
     Object put(Object key, Object value);
     Object remove(Object key);
