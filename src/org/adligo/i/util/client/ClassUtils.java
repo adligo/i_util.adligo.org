@@ -13,4 +13,5 @@ public class ClassUtils {
 		String asStr = c.toString();
 		return asStr.substring(6, asStr.length());
 	}
+
 }

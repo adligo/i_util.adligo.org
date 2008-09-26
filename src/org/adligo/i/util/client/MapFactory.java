@@ -12,9 +12,10 @@ import java.util.HashMap;
  */
 public class MapFactory  {
 	protected static I_Factory me;
-	
-	protected static void init(I_Factory in) throws Exception {
+	protected static I_Factory imute_me;
+	protected static void init(I_Factory in, I_Factory imutable_fact) throws Exception {
 		me = in;
+		imute_me = imutable_fact;
 	}
 	
 	/**
@@ -30,7 +31,7 @@ public class MapFactory  {
 	
 	
 	public static I_ImutableMap create(I_Map p) {
-		return (I_ImutableMap) me.createNew(p);
+		return (I_ImutableMap) imute_me.createNew(p);
 	}
 	
 	/**
