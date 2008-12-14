@@ -26,11 +26,17 @@ public class MapFactory  {
 	 * @return
 	 */
 	public static I_Map get(Object p) {
+		if (me == null) {
+			printImNull();
+		}
 		return (I_Map) me.createNew(p);
 	}
 	
 	
 	public static I_ImmutableMap create(I_Map p) {
+		if (imute_me == null) {
+			printImNull();
+		}
 		return (I_ImmutableMap) imute_me.createNew(p);
 	}
 	
@@ -39,6 +45,17 @@ public class MapFactory  {
 	 * @return
 	 */
 	public static I_Map create() {
+		if (me == null) {
+			printImNull();
+		}
 		return (I_Map) me.createNew(null);
+	}
+
+	private static void printImNull() {
+		try {
+			throw new NullPointerException("wtf");
+		} catch (Exception x) {
+			x.printStackTrace();
+		}
 	}
 }
