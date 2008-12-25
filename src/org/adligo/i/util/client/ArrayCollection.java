@@ -4,6 +4,8 @@ package org.adligo.i.util.client;
  * a simple collection implementaion that will 
  * work on GWT, J2ME and J2SE
  * 
+ * does not allow null items!
+ * 
  * @author scott
  *
  */
@@ -18,6 +20,13 @@ public class ArrayCollection implements I_Collection {
 	private int size = 0;
   
 	public synchronized boolean add(Object o) {
+		if (o == null) {
+			return false;
+		}
+		return addInternal(o);
+	}
+
+	private boolean addInternal(Object o) {
 		Object [] secondDim = elementData[elementData.length -1 ];
 		if (secondDim[99] != null) {
 			Object [][] newElementData = new Object[elementData.length + 1][100];
@@ -34,10 +43,14 @@ public class ArrayCollection implements I_Collection {
 			}
 		}
 		size++;
-		return false;
+		return true;
 	}
 
 	public synchronized void clear() {
+		clearInternal();
+	}
+
+	private void clearInternal() {
 		elementData = new Object[1][100];
 		size = 0;
 	}
@@ -47,8 +60,25 @@ public class ArrayCollection implements I_Collection {
 		return new ArrayIterator(toArray());
 	}
 
-	public boolean remove(Object o) {
-		throw new RuntimeException("Method not supported yet!");
+	public synchronized boolean remove(Object o) {
+		if (o == null) {
+			return false;
+		}
+		Object [] old = this.toArray();
+		clearInternal();
+		for (int i = 0; i < old.length; i++) {
+			Object item = old[i];
+			/*
+			System.out.println("Object " + o + " equals " + item + " ? " + o.equals(item) + 
+					" current size is " + size);
+					*/
+			if (o.equals(item)) {
+				//don't add it 
+			} else {
+				this.addInternal(item);
+			}
+		}
+		return true;
 	}
 
 	public int size() {
