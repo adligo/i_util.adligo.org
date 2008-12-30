@@ -66,4 +66,23 @@ public class StringUtils {
 		}
 		return false;
 	}
+	
+	/**
+	 * apparently not in some versions of CLDC
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public static boolean equalsIgnoreCase(String a, String b) {
+		if (a == null &&  b == null) {
+			return true;
+		}
+		if (a == null || b == null) {
+			return false;
+		}
+		String a1 = a.toLowerCase();
+		String b1 = b.toLowerCase();
+		System.out.println(" compairing " + a1 + " and " +b1);
+		return a1.equals(b1);
+	}
 }
