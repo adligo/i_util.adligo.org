@@ -82,7 +82,7 @@ public class StringUtils {
 		}
 		String a1 = a.toLowerCase();
 		String b1 = b.toLowerCase();
-		System.out.println(" compairing " + a1 + " and " +b1);
+		//System.out.println(" compairing " + a1 + " and " +b1);
 		return a1.equals(b1);
 	}
 }
