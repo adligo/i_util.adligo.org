@@ -14,4 +14,18 @@ public class ClassUtils {
 		return asStr.substring(6, asStr.length());
 	}
 
+	/**
+	 * simmilar to javas regular instanceOf
+	 * but doesn't go up the chain of Interfaces and BaseClasses
+	 * only looks at the Leaf most Class
+	 * @return
+	 */
+	public static boolean typeOf(Object p, Class c) {
+		String className = ClassUtils.getClassName(c);
+		String otherClassName = ClassUtils.getClassName(p.getClass());
+		if (className.equals(otherClassName)) {
+			return true;
+		}
+		return false;
+	}
 }
