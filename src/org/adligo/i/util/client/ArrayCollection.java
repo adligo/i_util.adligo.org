@@ -110,4 +110,39 @@ public class ArrayCollection implements I_Collection {
 		return toRet;
 	}
 
+	/**
+	 * if the Object passed in .equals any 
+	 * of the objects in the Collection
+	 * return the Object from the Collection
+	 * 
+	 * This is used for Named Singletons
+	 * or a set of singletons that have been given names 
+	 * where there should be only one Singleton per Name
+	 * 
+	 * More specifically it is used in ADI for CACHE_READER WRITER
+	 * so that If 3 clients (java classes) call for the 
+	 * CACHE_READER they don't overwrite each others proxyies
+	 * 
+	 * This is probably also a bug in i_log, however since each log
+	 * should be specific to a particular class there is a one to one
+	 * relation already
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public Object get(Object p) {
+		//System.out.println("Entering ArrayCollection.get(" + p + ")");
+		if (p!= null) {
+			I_Iterator it = this.getIterator();
+			while (it.hasNext()) {
+				Object item = it.next();
+				//System.out.println("Checking vs " + item);
+				if (p.equals(item)) {
+					//System.out.println("Returning " + item);
+					return item;
+				}
+			}
+		}
+		return null;
+	}
 }
