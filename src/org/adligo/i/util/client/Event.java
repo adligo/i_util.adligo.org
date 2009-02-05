@@ -13,13 +13,30 @@ package org.adligo.i.util.client;
  *
  */
 public class Event implements I_Disposable {
-	
+	/**
+	 * this represents the GUI (view) component that
+	 * created the event
+	 */
+	private Object source = null;
 	private Throwable exception = null;
 	private Object  value = null;
 	
 	public void dispose() {
+		source = null;
 		exception = null;
 		value = null;
+	}
+	
+	public Object clone() {
+		Event e = new Event();
+		e.source = source;
+		e.exception = exception;
+		e. value = value;
+		return e;
+	}
+	
+	public Event copy() {
+		return (Event) this.clone();
 	}
 	
 	public Object getValue() {
@@ -42,6 +59,14 @@ public class Event implements I_Disposable {
 	}
 	public void setException(Throwable exception) {
 		this.exception = exception;
+	}
+
+	public Object getSource() {
+		return source;
+	}
+
+	public void setSource(Object source) {
+		this.source = source;
 	}
 	
 }
