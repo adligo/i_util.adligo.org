@@ -12,7 +12,7 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public class Event implements I_Disposable {
+public class Event  {
 	/**
 	 * this represents the GUI (view) component that
 	 * created the event
@@ -20,12 +20,6 @@ public class Event implements I_Disposable {
 	private Object source = null;
 	private Throwable exception = null;
 	private Object  value = null;
-	
-	public void dispose() {
-		source = null;
-		exception = null;
-		value = null;
-	}
 	
 	public Object clone() {
 		Event e = new Event();

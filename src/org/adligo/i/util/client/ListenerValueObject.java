@@ -1,14 +1,8 @@
 package org.adligo.i.util.client;
 
-public class ListenerValueObject implements I_Disposable {
+public class ListenerValueObject {
 	private I_Listener listener = null;
 	private Object value = null;
-	
-	
-	public void dispose() {
-		listener = null;
-		value = null;
-	}
 	
 	public I_Listener getListener() {
 		return listener;
