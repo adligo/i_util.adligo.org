@@ -145,4 +145,23 @@ public class ArrayCollection implements I_Collection {
 		}
 		return null;
 	}
+	/**
+	 * just another way to iterate internally
+	 * mostly added to port the params project
+	 * to GWT
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public Object get(int p) {
+		if (p < 0) {
+			return null;
+		}
+		if (p > 99) {
+			int x = p/100;
+			int y = p-x*100;
+			return elementData[x][y];
+		}
+		return elementData[0][p];
+	}
 }
