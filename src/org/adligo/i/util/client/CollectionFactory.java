@@ -18,7 +18,8 @@ public class CollectionFactory  {
 	
 	/**
 	 * 
-	 * @param The class you want to wrap (a Hashtable for J2ME or a Map for 
+	 * @param The class you want to wrap 
+	 * (a Vector for J2ME or a Collection (List) for 
 	 * j2se and GWT)
 	 * 
 	 * backed by a Vector on J2ME
