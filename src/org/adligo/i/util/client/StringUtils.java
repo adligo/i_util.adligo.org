@@ -10,9 +10,9 @@ public class StringUtils {
 	
 	/**
 	 * creates a map out of a string
+	 * (loaded from a property file)
 	 * 
 	 * @param p
-	 * @param delimiter
 	 * @param newLine
 	 * 
 	 * @return
