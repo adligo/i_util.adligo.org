@@ -63,4 +63,15 @@ public class Event  {
 		this.source = source;
 	}
 	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Event [source=");
+		sb.append(source);
+		sb.append(",value=");
+		sb.append(value);
+		sb.append(",exception=");
+		sb.append(exception);
+		sb.append("]");
+		return sb.toString();
+	}
 }
