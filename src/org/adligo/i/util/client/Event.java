@@ -21,6 +21,11 @@ public class Event  {
 	private Throwable exception = null;
 	private Object  value = null;
 	
+	public Event() {}
+	public Event(Object p_source) {
+		source = p_source;
+	}
+	
 	public Object clone() {
 		Event e = new Event();
 		e.source = source;
