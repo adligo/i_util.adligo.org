@@ -1,7 +1,5 @@
 package org.adligo.i.util.client;
 
-import java.util.Map;
-import java.util.HashMap;
 
 /**
  * actually a I_Hashtable factory

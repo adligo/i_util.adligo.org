@@ -1,6 +1,5 @@
 package org.adligo.i.util.client;
 
-import java.util.HashMap;
 
 public class StringUtils {
 	public static final char EQUALS = '=';
