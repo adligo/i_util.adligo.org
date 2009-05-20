@@ -1,5 +1,7 @@
 package org.adligo.i.util.client;
 
+import java.util.Arrays;
+
 /**
  * a simple collection implementaion that will 
  * work on GWT, J2ME and J2SE
@@ -10,14 +12,41 @@ package org.adligo.i.util.client;
  *
  */
 public class ArrayCollection implements I_Collection {
+	private static int hashCode(Object[] array) {
+		int prime = 31;
+		if (array == null)
+			return 0;
+		int result = 1;
+		for (int index = 0; index < array.length; index++) {
+			result = prime * result
+					+ (array[index] == null ? 0 : array[index].hashCode());
+		}
+		return result;
+	}
 	private static final int DIM_2 = 100;
 	
+	private int secondArraySize = 100;
 	/**
 	 * a 2 dimension array
 	 * the second dimension is always 100 elements
 	 */
-	private Object[][] elementData = new Object[1][100];
+	private Object[][] elementData = new Object[1][secondArraySize];
 	private int size = 0;
+	
+	public ArrayCollection() {
+		
+	}
+	/**
+	 * sets the size of the second internal array
+	 * defaluts to 100 in the regular ArrayCollection
+	 * @param chunkSize
+	 */
+	public ArrayCollection(int chunkSize) {
+		if (chunkSize < 2) {
+			throw new RuntimeException("ChunkSize must be at least 2");
+		}
+		secondArraySize = chunkSize;
+	}
   
 	public synchronized boolean add(Object o) {
 		if (o == null) {
@@ -28,8 +57,10 @@ public class ArrayCollection implements I_Collection {
 
 	private boolean addInternal(Object o) {
 		Object [] secondDim = elementData[elementData.length -1 ];
-		if (secondDim[99] != null) {
-			Object [][] newElementData = new Object[elementData.length + 1][100];
+		
+		
+		if (secondDim[secondArraySize -1 ] != null) {
+			Object [][] newElementData = new Object[elementData.length + 1][secondArraySize];
 			for (int i = 0; i < elementData.length; i++) {
 				newElementData[i] = elementData[i]; 
 			}
@@ -51,7 +82,7 @@ public class ArrayCollection implements I_Collection {
 	}
 
 	private void clearInternal() {
-		elementData = new Object[1][100];
+		elementData = new Object[1][secondArraySize];
 		size = 0;
 	}
 	
@@ -157,11 +188,29 @@ public class ArrayCollection implements I_Collection {
 		if (p < 0) {
 			return null;
 		}
-		if (p > 99) {
-			int x = p/100;
-			int y = p-x*100;
+		if (p > secondArraySize -1) {
+			int x = p/secondArraySize;
+			int y = p-x*secondArraySize;
 			return elementData[x][y];
 		}
 		return elementData[0][p];
+	}
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ArrayCollection.hashCode(elementData);
+		return result;
+	}
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ArrayCollection other = (ArrayCollection) obj;
+		if (!Arrays.equals(elementData, other.elementData))
+			return false;
+		return true;
 	}
 }
