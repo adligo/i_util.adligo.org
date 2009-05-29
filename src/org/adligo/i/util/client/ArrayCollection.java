@@ -30,11 +30,11 @@ public class ArrayCollection implements I_Collection {
 	 * a 2 dimension array
 	 * the second dimension is always 100 elements
 	 */
-	private Object[][] elementData = new Object[1][secondArraySize];
+	private Object[][] elementData;
 	private int size = 0;
 	
 	public ArrayCollection() {
-		
+		elementData = new Object[1][secondArraySize];
 	}
 	/**
 	 * sets the size of the second internal array
@@ -46,6 +46,7 @@ public class ArrayCollection implements I_Collection {
 			throw new RuntimeException("ChunkSize must be at least 2");
 		}
 		secondArraySize = chunkSize;
+		elementData = new Object[1][secondArraySize];
 	}
   
 	public synchronized boolean add(Object o) {
@@ -209,8 +210,21 @@ public class ArrayCollection implements I_Collection {
 		if (getClass() != obj.getClass())
 			return false;
 		ArrayCollection other = (ArrayCollection) obj;
-		if (!Arrays.equals(elementData, other.elementData))
+		if (other.size() != size()) {
 			return false;
+		}
+		for (int i = 0; i < other.size(); i++) {
+			Object o = other.get(i);
+			if (o == null) {
+				if (get(i) != null) {
+					return false;
+				}
+			} else {
+				if (!o.equals(get(i))) {
+					return false;
+				}
+			}
+		}
 		return true;
 	}
 }
