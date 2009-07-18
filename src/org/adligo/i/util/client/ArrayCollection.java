@@ -1,6 +1,5 @@
 package org.adligo.i.util.client;
 
-import java.util.Arrays;
 
 /**
  * a simple collection implementaion that will 
