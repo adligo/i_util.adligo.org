@@ -71,7 +71,13 @@ public class Event  {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Event [source=");
-		sb.append(source);
+		if (source == null) {
+			sb.append("null");
+		} else {
+			sb.append(ClassUtils.getClassShortName(source.getClass()));
+			sb.append("-HASH-");
+			sb.append(source.hashCode());
+		}
 		sb.append(",value=");
 		sb.append(value);
 		sb.append(",exception=");

@@ -14,6 +14,16 @@ public class ClassUtils {
 		return asStr.substring(6, asStr.length());
 	}
 
+	public static String getClassShortName(Class c) {
+		String asStr = c.toString();
+		int index = asStr.indexOf(".");
+		if ( index != -1 && index < asStr.length() - 1) {
+			String toRet = asStr.substring(asStr.lastIndexOf(".") + 1, asStr.length());
+			return toRet;
+		}
+		return asStr;
+	}
+	
 	/**
 	 * simmilar to javas regular instanceOf
 	 * but doesn't go up the chain of Interfaces and BaseClasses
