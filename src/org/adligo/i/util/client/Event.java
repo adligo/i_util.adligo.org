@@ -74,7 +74,11 @@ public class Event  {
 		if (source == null) {
 			sb.append("null");
 		} else {
-			sb.append(ClassUtils.getClassShortName(source.getClass()));
+			if (source instanceof Class) {
+				sb.append(ClassUtils.getClassShortName((Class) source));
+			} else {
+				sb.append(" instanceof" + ClassUtils.getClassShortName(source.getClass()));
+			}
 			sb.append("-HASH-");
 			sb.append(source.hashCode());
 		}
