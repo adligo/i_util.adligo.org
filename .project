@@ -11,7 +11,22 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>eclipseme.core.preprocessor</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.mtj.core.preprocessor</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.mtj.core.preverifier</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -25,5 +40,8 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>eclipseme.core.nature</nature>
 		<nature>com.swtdesigner.gwt.GWTNature</nature>
+		<nature>eclipseme.core.preprocessingNature</nature>
+		<nature>org.eclipse.mtj.core.nature</nature>
+		<nature>org.eclipse.mtj.core.preprocessingNature</nature>
 	</natures>
 </projectDescription>
