@@ -12,7 +12,7 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public class Event  {
+public class Event implements I_Event  {
 	public static final String FINISHED_VALUE = "EventFinished";
 	/**
 	 * this represents the GUI (view) component that
@@ -21,18 +21,18 @@ public class Event  {
 	private Object source = null;
 	private Throwable exception = null;
 	private Object  value = null;
-	private Event original;
+	private I_Event original;
 	
 	public Event() {}
 	public Event(Object p_source) {
 		source = p_source;
 	}
 	
-	public Event(Event p) {
+	public Event(I_Event p) {
 		original = p;
-		source = original.source;
-		value = original.value;
-		exception = original.exception;
+		source = original.getSource();
+		value = original.getValue();
+		exception = original.getException();
 	}
 	
 	public Object clone() {
@@ -98,7 +98,10 @@ public class Event  {
 		sb.append("]");
 		return sb.toString();
 	}
-	public Event getOriginal() {
+	/* (non-Javadoc)
+	 * @see org.adligo.i.util.client.I_Event#getOriginal()
+	 */
+	public I_Event getOriginal() {
 		if (original == null) {
 			return this;
 		}
