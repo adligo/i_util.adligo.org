@@ -11,7 +11,7 @@ public class ProxyListener implements I_Listener {
 		this.delegate = delegate;
 	}
 
-	public void onEvent(Event p) {
+	public void onEvent(I_Event p) {
 		delegate.onEvent(p);
 	}
 	

@@ -9,4 +9,5 @@ public interface I_Event {
 
 	public void setValue(Object value);
 	public void setException(Throwable exception);
+	public boolean threwException();
 }
