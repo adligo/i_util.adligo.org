@@ -13,6 +13,7 @@ package org.adligo.i.util.client;
  *
  */
 public class Event  {
+	public static final String FINISHED_VALUE = "EventFinished";
 	/**
 	 * this represents the GUI (view) component that
 	 * created the event
@@ -20,10 +21,18 @@ public class Event  {
 	private Object source = null;
 	private Throwable exception = null;
 	private Object  value = null;
+	private Event original;
 	
 	public Event() {}
 	public Event(Object p_source) {
 		source = p_source;
+	}
+	
+	public Event(Event p) {
+		original = p;
+		source = original.source;
+		value = original.value;
+		exception = original.exception;
 	}
 	
 	public Object clone() {
@@ -88,5 +97,11 @@ public class Event  {
 		sb.append(exception);
 		sb.append("]");
 		return sb.toString();
+	}
+	public Event getOriginal() {
+		if (original == null) {
+			return this;
+		}
+		return original;
 	}
 }

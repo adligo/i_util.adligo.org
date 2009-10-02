@@ -51,7 +51,8 @@ public class MapFactory  {
 
 	private static void printImNull() {
 		try {
-			throw new NullPointerException("wtf");
+			throw new NullPointerException("Please initalize your Platform first see J2SEPlatform," +
+					" GwtPlatform or J2MEPlatform");
 		} catch (Exception x) {
 			x.printStackTrace();
 		}
