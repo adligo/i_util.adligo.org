@@ -12,5 +12,5 @@ package org.adligo.i.util.client;
  */
 public interface I_ThreadPopulator {
 	
-	public void populateThread(Object threadHolder);
+	public void populateThread(I_ThreadContainer threadHolder);
 }
