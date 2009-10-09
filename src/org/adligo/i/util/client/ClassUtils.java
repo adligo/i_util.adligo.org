@@ -18,7 +18,13 @@ public class ClassUtils {
 		String asStr = c.toString();
 		int index = asStr.indexOf(".");
 		if ( index != -1 && index < asStr.length() - 1) {
-			String toRet = asStr.substring(asStr.lastIndexOf(".") + 1, asStr.length());
+			int start = asStr.lastIndexOf('.') + 1;
+			int end = asStr.length();
+			
+			String toRet = "";
+			if (start < end) {
+				toRet = asStr.substring(start, end);
+			}
 			return toRet;
 		}
 		return asStr;
