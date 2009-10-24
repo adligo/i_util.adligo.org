@@ -84,4 +84,24 @@ public class StringUtils {
 		//System.out.println(" compairing " + a1 + " and " +b1);
 		return a1.equals(b1);
 	}
+	
+	/**
+	 * GWT didn't implement
+	 * @param p
+	 * @param i
+	 * @return
+	 */
+	public static int lastIndexOf(String p, char i) {
+		if (p == null) {
+			return -1;
+		}
+		int lastIndex = -1;
+		char [] chars = p.toCharArray();
+		for (int j = 0; j < chars.length; j++) {
+			if (chars[j] == i) {
+				lastIndex = j;
+			}
+		}
+		return lastIndex;
+	}
 }
