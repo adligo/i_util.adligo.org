@@ -11,7 +11,11 @@ public class ClassUtils {
 	 */
 	public static String getClassName(Class c) {
 		String asStr = c.toString();
-		return asStr.substring(6, asStr.length());
+		String first = asStr.substring(6, asStr.length());
+		if (first.indexOf("ace ") == 0) {
+			first = first.substring(4, first.length());
+		}
+		return first;
 	}
 
 	public static String getClassShortName(Class c) {
