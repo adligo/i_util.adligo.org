@@ -49,11 +49,13 @@ public class StringUtils {
 	}
 
 	private static void addValue(I_Map map, StringBuffer key, StringBuffer val) {
+		String key_string = key.toString(); 
+		String value = val.toString();
 		if (SELF_LOG) {
-			System.out.println("putting '" + key.toString() + "','" +
-					val.toString() + "'");
+			System.out.println("putting '" + key_string + "','" +
+					value + "'");
 		}
-		map.put(key.toString(), val.toString());
+		map.put(key_string, value);
 	}
 	
 	public static  boolean isEmpty(String p) {

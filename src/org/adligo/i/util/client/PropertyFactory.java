@@ -14,7 +14,9 @@ public class PropertyFactory  {
 	 * 
 	 * GWT relative to the html file that was loaded
 	 * 
-	 * @param listener a async callback that is available on both j2me and GWT
+	 * @param listener a callback that is available on j2se, j2me and GWT
+	 * 		will recieve either a I_Map with the properties
+	 * 	    or a PropertyFileReadException
 	 * 
 	 * j2me and j2se relative to classpath
 	 * 
