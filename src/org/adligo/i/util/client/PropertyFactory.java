@@ -3,8 +3,15 @@ package org.adligo.i.util.client;
 public class PropertyFactory  {
 	protected static I_Factory me;
 	
-	protected static void init(I_Factory in) throws Exception {
-		me = in;
+	protected static synchronized void init(I_Factory in) throws Exception {
+		if (in == null) {
+			throw new Exception("PropertyFactory needs a non null factory argument.");
+		}
+		if (me == null) {
+			me = in;
+		} else {
+			throw new Exception("PropertyFactory was already initialized.");
+		}
 	}
 	/**
 	 * 
@@ -29,4 +36,10 @@ public class PropertyFactory  {
 		me.createNew(params);
 	}	
 	
+	public static boolean isInit() {
+		if (me == null) {
+			return false;
+		}
+		return true;
+	}
 }

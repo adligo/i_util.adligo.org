@@ -1,7 +1,7 @@
 package org.adligo.i.util.client;
 
 public class TextFormatter implements I_TextFormatter {
-	private static I_TextFormatter delegate;
+	protected static I_TextFormatter delegate;
 
 	public String format(String format, double value) {
 		return delegate.format(format, value);
@@ -27,11 +27,25 @@ public class TextFormatter implements I_TextFormatter {
 		return delegate.formatDate(format, value);
 	}
 	
-	protected static void setDelegate(I_TextFormatter itf) {
-		delegate = itf;
+	protected static synchronized void setDelegate(I_TextFormatter itf) throws Exception {
+		if (itf == null) {
+			throw new Exception("TextFormatter needs a non null I_TextFormater argument.");
+		}
+		if (delegate == null) {
+			delegate = itf;
+		} else {
+			throw new Exception("TextFormatter has already been initialized.");
+		}
 	}
 	
 	public static final I_TextFormatter getInstance() {
 		return delegate;
+	}
+	
+	public static boolean isInit() {
+		if (delegate == null) {
+			return false;
+		}
+		return true;
 	}
 }

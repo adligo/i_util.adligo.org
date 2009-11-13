@@ -17,4 +17,30 @@ public class Platform {
 	protected synchronized static void setPlatformJME() {
 		running = JME;
 	}
+	
+	/**
+	 * for a nicer error checking in the LogPlatform class
+	 * @return
+	 */
+	public static boolean isInit() {
+		if (!CollectionFactory.isInit()) {
+			return false;
+		}
+		if (!MapFactory.isInit()) {
+			return false;
+		}
+		if (!IteratorFactory.isInit()) {
+			return false;
+		}
+		if (!PropertyFactory.isInit()) {
+			return false;
+		}
+		if (!ThreadPopulatorFactory.isInit()) {
+			return false;
+		}
+		if (!TextFormatter.isInit()) {
+			return false;
+		}
+		return true;
+	}
 }

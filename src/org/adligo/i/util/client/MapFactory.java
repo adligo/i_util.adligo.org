@@ -12,7 +12,7 @@ public class MapFactory  {
 	protected static I_Factory me;
 	protected static I_Factory imute_me;
 	
-	protected static void init(I_Factory in, I_Factory imutable_fact) throws Exception {
+	protected synchronized static void init(I_Factory in, I_Factory imutable_fact) throws Exception {
 		if (in == null) {
 			throw new  Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
 			" can't accept a null in parameter.");
