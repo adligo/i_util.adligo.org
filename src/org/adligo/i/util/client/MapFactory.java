@@ -11,9 +11,26 @@ package org.adligo.i.util.client;
 public class MapFactory  {
 	protected static I_Factory me;
 	protected static I_Factory imute_me;
+	
 	protected static void init(I_Factory in, I_Factory imutable_fact) throws Exception {
-		me = in;
-		imute_me = imutable_fact;
+		if (in == null) {
+			throw new  Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
+			" can't accept a null in parameter.");
+		}
+		if (imutable_fact == null) {
+			throw new  Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
+			" can't accept a null imutable_fact parameter.");
+		}
+		
+		if (me == null) {
+			me = in;
+			imute_me = imutable_fact;
+		} else  {
+			throw new Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
+					" has already been initalized.");
+		}
+		
+		
 	}
 	
 	/**
@@ -56,5 +73,12 @@ public class MapFactory  {
 		} catch (Exception x) {
 			x.printStackTrace();
 		}
+	}
+	
+	public static boolean isInit() {
+		if (me == null) {
+			return false;
+		}
+		return true;
 	}
 }

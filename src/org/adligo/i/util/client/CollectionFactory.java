@@ -10,8 +10,17 @@ package org.adligo.i.util.client;
 public class CollectionFactory  {
 	protected static I_Factory me;
 	
-	protected static void init(I_Factory in) throws Exception {
-		me = in;
+	protected static synchronized void init(I_Factory in) throws Exception {
+		if (me == null) {
+			me = in;
+		} else {
+			throw new Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
+					" has already been initalized.");
+		}
+		if (me == null) {
+			throw new Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
+				" the me variable is null?");
+		}
 	}
 	
 	/**
@@ -37,5 +46,12 @@ public class CollectionFactory  {
 	 */
 	public static I_Collection create() {
 		return (I_Collection) me.createNew(null);
+	}
+	
+	public static boolean isInit() {
+		if (me == null) {
+			return false;
+		}
+		return true;
 	}
 }
