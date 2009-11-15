@@ -50,6 +50,9 @@ public class StringUtils {
 
 	private static void addValue(I_Map map, StringBuffer key, StringBuffer val) {
 		String key_string = key.toString(); 
+		if (StringUtils.isEmpty(key_string)) {
+			return;
+		}
 		String value = val.toString();
 		if (SELF_LOG) {
 			System.out.println("putting '" + key_string + "','" +
