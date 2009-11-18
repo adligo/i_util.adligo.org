@@ -6,6 +6,5 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="org.elipse.mtj.JavaMEContainer/MOTODEV SDK for Java(TM) ME 3.x/ROUND"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="GWT_HOME/gwt-user.jar"/>
 	<classpathentry kind="output" path="classes_e"/>
 </classpath>
