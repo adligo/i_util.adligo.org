@@ -83,13 +83,18 @@ public class Event implements I_Event  {
 		if (source == null) {
 			sb.append("null");
 		} else {
-			if (source instanceof Class) {
-				sb.append(ClassUtils.getClassShortName((Class) source));
+			String asString = source.toString();
+			if (asString.length() <= 100) {
+				sb.append(asString);
 			} else {
-				sb.append(" instanceof" + ClassUtils.getClassShortName(source.getClass()));
+				if (source instanceof Class) {
+					sb.append(ClassUtils.getClassShortName((Class) source));
+				} else {
+					sb.append(" instanceof" + ClassUtils.getClassShortName(source.getClass()));
+				}
+				sb.append("-HASH-");
+				sb.append(source.hashCode());
 			}
-			sb.append("-HASH-");
-			sb.append(source.hashCode());
 		}
 		sb.append(",value=");
 		sb.append(value);
