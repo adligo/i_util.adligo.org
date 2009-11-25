@@ -9,7 +9,7 @@ public class SystemOutput implements I_SystemOutput {
 		System.err.println(p);
 	}
 
-	public void exception(Exception x) {
+	public void exception(Throwable x) {
 		x.printStackTrace();
 	}
 

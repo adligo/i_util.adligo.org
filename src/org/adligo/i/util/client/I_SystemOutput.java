@@ -26,5 +26,5 @@ public interface I_SystemOutput {
 	 * calls a x.printStackTrace
 	 * @param x
 	 */
-	public void exception(Exception x);
+	public void exception(Throwable x);
 }
