@@ -14,11 +14,11 @@ public class MapFactory  {
 	
 	protected synchronized static void init(I_Factory in, I_Factory imutable_fact) throws Exception {
 		if (in == null) {
-			throw new  Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
+			throw new  Exception("" + ClassUtils.getClassName(MapFactory.class) +
 			" can't accept a null in parameter.");
 		}
 		if (imutable_fact == null) {
-			throw new  Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
+			throw new  Exception("" + ClassUtils.getClassName(MapFactory.class) +
 			" can't accept a null imutable_fact parameter.");
 		}
 		
@@ -26,7 +26,7 @@ public class MapFactory  {
 			me = in;
 			imute_me = imutable_fact;
 		} else  {
-			throw new Exception("" + ClassUtils.getClassName(CollectionFactory.class) +
+			throw new Exception("" + ClassUtils.getClassName(MapFactory.class) +
 					" has already been initalized.");
 		}
 		
