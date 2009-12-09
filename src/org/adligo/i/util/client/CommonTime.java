@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class CommonTime {
 	public static final String DEFAULT_TIME_FORMAT = "h:mm a";
+	public static final String DEFAULT_TIME_DETAIL_FORMAT = "h:mm:ss SSS a";
 	public static final String DEFAULT_DATE_FORMAT = "MM/dd/yy";
 	public static final String DEFAULT_DATE_TIME_FORMAT = "MM/dd/yy h:mm a SSS";
 	public static final String DEFAULT_DATE_TIME_TIMEZONE_FORMAT = "MM/dd/yy h:mm a SSS Z";
