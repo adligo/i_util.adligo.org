@@ -158,6 +158,9 @@ public class ArrayCollection implements I_Collection {
 	 * should be specific to a particular class there is a one to one
 	 * relation already
 	 * 
+	 * NOTE this does a sequential search and is not efficient for large collections 
+	 * (collections with 10 or more elements)
+	 * 
 	 * @param p
 	 * @return
 	 */
@@ -176,6 +179,24 @@ public class ArrayCollection implements I_Collection {
 		}
 		return null;
 	}
+	
+	/**
+	 * if the collection contains the other 
+	 * element as determined by .equals
+	 * 
+	 * NOTE this does a sequential search and is not efficient for large collections 
+	 * (collections with 10 or more elements)
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public boolean contains(Object p) {
+		if (get(p) == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * just another way to iterate internally
 	 * mostly added to port the params project
