@@ -10,7 +10,14 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public class ArrayCollection implements I_Collection {
+public class ArrayCollection implements I_Collection, I_Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public static final int[] EMPTY_XY = new int[] {-1};
+
 	private static int hashCode(Object[] array) {
 		int prime = 31;
 		if (array == null)
@@ -35,6 +42,14 @@ public class ArrayCollection implements I_Collection {
 	public ArrayCollection() {
 		elementData = new Object[1][secondArraySize];
 	}
+	
+	public ArrayCollection(I_Collection other) {
+		elementData = new Object[1][secondArraySize];
+		I_Iterator it = other.getIterator();
+		while (it.hasNext()) {
+			add(it.next());
+		}
+	}
 	/**
 	 * sets the size of the second internal array
 	 * defaluts to 100 in the regular ArrayCollection
@@ -52,10 +67,11 @@ public class ArrayCollection implements I_Collection {
 		if (o == null) {
 			return false;
 		}
-		return addInternal(o);
+		addInternal(o);
+		return true;
 	}
 
-	private boolean addInternal(Object o) {
+	Integer addInternal(Object o) {
 		Object [] secondDim = elementData[elementData.length -1 ];
 		
 		
@@ -70,11 +86,12 @@ public class ArrayCollection implements I_Collection {
 		for (int i = 0; i < secondDim.length; i++) {
 			if (secondDim[i] == null) {
 				secondDim[i] = o;
-				break;
+				size++;
+				return new Integer(size - 1);
 			}
 		}
-		size++;
-		return true;
+		
+		return null;
 	}
 
 	public synchronized void clear() {
@@ -91,6 +108,12 @@ public class ArrayCollection implements I_Collection {
 		return new ArrayIterator(toArray());
 	}
 
+	/**
+	 * very inefficient
+	 * if you need to remove a lot of things consider using
+	 * the regular Collections like List and Set
+	 * 
+	 */
 	public synchronized boolean remove(Object o) {
 		if (o == null) {
 			return false;
@@ -112,6 +135,10 @@ public class ArrayCollection implements I_Collection {
 		return true;
 	}
 
+	public synchronized boolean remove(int i) {
+		Object toRemove = get(i);
+		return remove(toRemove);
+	}
 	public int size() {
 		// TODO Auto-generated method stub
 		return size;
@@ -216,6 +243,19 @@ public class ArrayCollection implements I_Collection {
 		}
 		return elementData[0][p];
 	}
+	
+	public static int[] getTwoDimXY(int i, int p_secondArraySize) {
+		if (i < 0) {
+			return EMPTY_XY;
+		}
+		if (i > p_secondArraySize -1) {
+			int x = i/p_secondArraySize;
+			int y = i-x*p_secondArraySize;
+			return new int[]{x,y};
+		}
+		return new int[]{0,i};
+	}
+	
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -246,5 +286,23 @@ public class ArrayCollection implements I_Collection {
 			}
 		}
 		return true;
+	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(super.toString());
+		sb.append("[");
+		I_Iterator it = getIterator();
+		boolean first = true;
+		while (it.hasNext()) {
+			if (first) {
+				first = false;
+			} else  {
+				sb.append(",");
+			}
+			sb.append(it.next());
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 }

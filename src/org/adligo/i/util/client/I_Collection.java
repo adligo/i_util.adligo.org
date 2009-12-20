@@ -13,4 +13,5 @@ public interface I_Collection extends I_Wrapper {
 	public boolean remove(Object o);
 	public void clear();
 	public I_Iterator getIterator();
+	public boolean contains(Object other);
 }
