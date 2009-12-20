@@ -53,7 +53,7 @@ public class HashCollection implements I_Collection {
 		//System.out.println(this.getClass().getName() + " adding" + p);
 		return putOrAdd(p, false);
 	}
-	public boolean put(Object p) {
+	public synchronized boolean put(Object p) {
 		return putOrAdd(p, true);
 	}
 	
@@ -253,7 +253,7 @@ public class HashCollection implements I_Collection {
 		return null;
 	}
 	
-	public boolean remove(int hash) {
+	public synchronized boolean remove(int hash) {
 		if (containsObjects) {
 			I_Iterator it = hashToLocations.getIterator();
 			while (it.hasNext()) {
@@ -334,7 +334,7 @@ public class HashCollection implements I_Collection {
 		return false;
 	}
 
-	public synchronized I_Iterator getIterator() {
+	public I_Iterator getIterator() {
 		Object[] objs = getObjects();
 		return new ArrayIterator(objs);
 	}
