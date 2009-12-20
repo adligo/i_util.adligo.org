@@ -20,7 +20,15 @@ public class HashCollection implements I_Collection {
 	
 	private long span = INT_SPAN;
 	
+	/**
+	 * this is both the limit of objects in non max_depth HashCollection.splits
+	 */
 	private int chunkSize = 100;
+	
+	/**
+	 * the number of buckets that are created from a split
+	 */
+	private int bucketsFromSplit = 16;
 	
 	/**
 	 * if true the object array collection contains objects
@@ -71,7 +79,7 @@ public class HashCollection implements I_Collection {
 				}
 			}
 		} else {
-			int chunckSpan = getSpan(span, chunkSize);
+			int chunckSpan = getSpan(span, bucketsFromSplit);
 			Integer bucket = getBucket(p.hashCode(), min, max, chunckSpan);
 			HashCollection hc = (HashCollection) splits[bucket.intValue()];
 			//System.out.println(this.getClass().getName() + " adding" + p + " to " + hc);
@@ -115,16 +123,16 @@ public class HashCollection implements I_Collection {
 	private void split(int hash, Object p, boolean put) {
 		//System.out.println(this.getClass().getName() + " splitting " + this);
 		containsObjects = false;
-		int chunckSpan = getSpan(span, chunkSize);
+		int chunckSpan = getSpan(span, bucketsFromSplit);
 		
 		/**
 		 * the child hash containers will be in order
 		 */
 		int bucket = 0;
 		long next = min;
-		splits = new HashCollection[chunkSize];
+		splits = new HashCollection[bucketsFromSplit];
 		
-		for (int i = 0; i < chunkSize; i++) {
+		for (int i = 0; i < bucketsFromSplit; i++) {
 			if (next <= Integer.MAX_VALUE) {
 				HashCollection hc = new HashCollection();
 				hc.min = new Long(next).intValue();
@@ -237,7 +245,7 @@ public class HashCollection implements I_Collection {
 				}
 			}
 		} else {
-			int chunckSpan = getSpan(span, chunkSize);
+			int chunckSpan = getSpan(span, bucketsFromSplit);
 			Integer bucket = getBucket(hash, min, max, chunckSpan);
 			HashCollection hc = (HashCollection) splits[bucket.intValue()];
 			return hc.get(hash);
@@ -267,7 +275,7 @@ public class HashCollection implements I_Collection {
 			}
 		} else {
 			for (int i = 0; i < splits.length; i++) {
-				int chunckSpan = getSpan(span, chunkSize);
+				int chunckSpan = getSpan(span, bucketsFromSplit);
 				Integer bucket = getBucket(hash, min, max, chunckSpan);
 				HashCollection hc = (HashCollection) splits[bucket.intValue()];
 				return hc.remove(hash);
