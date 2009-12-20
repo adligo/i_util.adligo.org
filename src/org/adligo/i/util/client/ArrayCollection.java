@@ -10,12 +10,8 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public class ArrayCollection implements I_Collection, I_Serializable {
+public class ArrayCollection implements I_Collection {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public static final int[] EMPTY_XY = new int[] {-1};
 
 	private static int hashCode(Object[] array) {

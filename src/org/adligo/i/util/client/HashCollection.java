@@ -1,10 +1,6 @@
 package org.adligo.i.util.client;
 
-public class HashCollection implements I_Collection, I_Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class HashCollection implements I_Collection {
 	
 	//Math.abs(Integer.MIN_VALUE) = 2147483648
 	// but java wouln't compute it :(
@@ -13,7 +9,7 @@ public class HashCollection implements I_Collection, I_Serializable {
 	private int max = Integer.MAX_VALUE;
 	private int min = Integer.MIN_VALUE;
 	/**
-	 * this turns into the number of b tree lookups
+	 * this turns into the maximum number of b tree lookups
 	 */
 	private short max_depth = 25;
 	/**
