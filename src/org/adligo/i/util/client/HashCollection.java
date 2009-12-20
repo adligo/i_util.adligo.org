@@ -274,12 +274,10 @@ public class HashCollection implements I_Collection {
 				}
 			}
 		} else {
-			for (int i = 0; i < splits.length; i++) {
-				int chunckSpan = getSpan(span, bucketsFromSplit);
-				Integer bucket = getBucket(hash, min, max, chunckSpan);
-				HashCollection hc = (HashCollection) splits[bucket.intValue()];
-				return hc.remove(hash);
-			}
+			int chunckSpan = getSpan(span, bucketsFromSplit);
+			Integer bucket = getBucket(hash, min, max, chunckSpan);
+			HashCollection hc = (HashCollection) splits[bucket.intValue()];
+			return hc.remove(hash);
 		}
 		return false;
 	}
