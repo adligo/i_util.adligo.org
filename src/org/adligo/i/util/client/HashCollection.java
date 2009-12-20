@@ -31,8 +31,8 @@ public class HashCollection implements I_Collection {
 	/**
 	 * HashLocation's
 	 */
-	private ArrayCollection hashToLocations = new ArrayCollection();
-	private ArrayCollection objects = new ArrayCollection();
+	private ArrayCollection hashToLocations;
+	private ArrayCollection objects;
 	/**
 	 * HashContainers
 	 */
@@ -52,6 +52,10 @@ public class HashCollection implements I_Collection {
 	private boolean putOrAdd(Object p, boolean put) {
 		if (p == null) {
 			return false;
+		}
+		if (hashToLocations == null) {
+			hashToLocations = new ArrayCollection();
+			objects = new ArrayCollection();
 		}
 		int hash = p.hashCode();
 		
@@ -222,6 +226,9 @@ public class HashCollection implements I_Collection {
 	
 	public Object get(int hash) {
 		if (containsObjects) {
+			if (hashToLocations == null) {
+				return null;
+			}
 			I_Iterator it = hashToLocations.getIterator();
 			while (it.hasNext()) {
 				HashLocation hl = (HashLocation) it.next();
@@ -347,6 +354,9 @@ public class HashCollection implements I_Collection {
 
 	public int size() {
 		if (containsObjects) {
+			if (objects == null) {
+				return 0;
+			}
 			return objects.size();
 		} else  {
 			int total = 0;
