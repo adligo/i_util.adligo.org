@@ -21,7 +21,7 @@ public class HashCollection implements I_Collection {
 	private long span = INT_SPAN;
 	
 	/**
-	 * this is both the limit of objects in non max_depth HashCollection.splits
+	 * this is the limit of objects in non max_depth HashCollection.splits
 	 */
 	private int chunkSize = 100;
 	
