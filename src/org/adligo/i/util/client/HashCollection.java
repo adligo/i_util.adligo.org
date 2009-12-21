@@ -339,7 +339,11 @@ public class HashCollection implements I_Collection {
 
 	private Object[] getObjects() {
 		Object[] objs = new Object[size()];
+		
 		if (containsObjects) {
+			if (objects == null) {
+				return objs;
+			}
 			objs = objects.toArray();
 		} else {
 			int counter = 0;
