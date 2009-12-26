@@ -240,6 +240,15 @@ public class ArrayCollection implements I_Collection {
 		return elementData[0][p];
 	}
 	
+	void set(int p, Object o) {
+		if (p > secondArraySize -1) {
+			int x = p/secondArraySize;
+			int y = p-x*secondArraySize;
+			elementData[x][y] = o;
+		}
+		elementData[0][p] = o;
+	}
+	
 	public static int[] getTwoDimXY(int i, int p_secondArraySize) {
 		if (i < 0) {
 			return EMPTY_XY;

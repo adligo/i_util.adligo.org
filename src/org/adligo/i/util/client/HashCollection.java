@@ -1,5 +1,7 @@
 package org.adligo.i.util.client;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 public class HashCollection implements I_Collection {
 	
 	//Math.abs(Integer.MIN_VALUE) = 2147483648
@@ -41,23 +43,21 @@ public class HashCollection implements I_Collection {
 	 */
 	private ArrayCollection hashToLocations;
 	private ArrayCollection objects;
+	private boolean objects_contains_hash_dupe = false;
 	/**
 	 * HashContainers
 	 */
 	private HashCollection[] splits;
 	
 	public synchronized boolean add(Object p) {
-		if (p == null) {
-			return false;
-		}
 		//System.out.println(this.getClass().getName() + " adding" + p);
-		return putOrAdd(p, false);
+		return putOrAdd(p);
 	}
 	public synchronized boolean put(Object p) {
-		return putOrAdd(p, true);
+		return putOrAdd(p);
 	}
 	
-	private boolean putOrAdd(Object p, boolean put) {
+	private boolean putOrAdd(Object p) {
 		if (p == null) {
 			return false;
 		}
@@ -69,45 +69,70 @@ public class HashCollection implements I_Collection {
 		
 		if (containsObjects) {
 			if (objects.size() < chunkSize) {
-				return forceAddOrPut(hash, p, put);
+				return forceAdd(hash, p);
 			} else {
 				if (depth <  max_depth) {
-					split(hash, p, put);
+					split(p);
 					return true;
 				} else {
-					return forceAddOrPut(hash, p, put);
+					return forceAdd(hash, p);
 				}
 			}
 		} else {
 			int chunckSpan = getSpan(span, bucketsFromSplit);
 			Integer bucket = getBucket(p.hashCode(), min, max, chunckSpan);
-			HashCollection hc = (HashCollection) splits[bucket.intValue()];
-			//System.out.println(this.getClass().getName() + " adding" + p + " to " + hc);
-			if (put) {
-				return hc.put(p);
+			if (bucket == null) {
+				printNullBucketError(chunckSpan, p.hashCode());
+				return false;
 			} else {
+				HashCollection hc = (HashCollection) splits[bucket.intValue()];
+				//System.out.println(this.getClass().getName() + " adding" + p + " to " + hc);
 				return hc.add(p);
 			}
 		}
 	}
-	private boolean forceAddOrPut(int hash, Object p, boolean put) {
-		HashLocation hl = getHashLocation(hash);
-		if (put) {
-			if (hl != null) {
-				hashToLocations.remove(hl);
-				objects.remove(hl.getLocation());
-			}
-			Integer loc = objects.addInternal(p);
-			hashToLocations.add(new HashLocation(hash, loc.intValue()));
-			return true;
-		} else {
-			if (hl != null) {
+	
+	private boolean forceAdd(int hash, Object p) {
+		if (p instanceof HashDupeCollection) {
+			HashDupeCollection internalCollection = (HashDupeCollection) p;
+			Object objectWithHash = internalCollection.get(0);
+			if (objectWithHash == null) {
+				//objectWithHash should never be null but just incase
 				return false;
 			}
-			Integer loc = objects.addInternal(p);
-			hashToLocations.add(new HashLocation(hash, loc.intValue()));
+			int newHash = objectWithHash.hashCode();
+			Integer location = objects.addInternal(internalCollection);
+			hashToLocations.add(new HashLocation(newHash, location.intValue()));
+			objects_contains_hash_dupe = true;
 			return true;
 		}
+		HashLocation hl = getHashLocation(hash);
+		
+		if (hl != null) {
+			int location = hl.getLocation();
+			Object obj = objects.get(location);
+			
+			if (obj instanceof HashDupeCollection) {
+				HashDupeCollection ac = (HashDupeCollection) obj;
+				if (ac.contains(p)) {
+					return false;
+				}
+				ac.add(p);
+			} else {
+				if (obj.equals(p)) {
+					return false;
+				}
+				HashDupeCollection newAc = new HashDupeCollection();
+				newAc.add(p);
+				newAc.add(obj);
+				objects.set(location, newAc);
+				objects_contains_hash_dupe = true;
+			}
+			return true;
+		}
+		Integer loc = objects.addInternal(p);
+		hashToLocations.add(new HashLocation(hash, loc.intValue()));
+		return true;
 	}
 	
 	private HashLocation getHashLocation(int hash) {
@@ -120,7 +145,7 @@ public class HashCollection implements I_Collection {
 		}
 		return null;
 	}
-	private void split(int hash, Object p, boolean put) {
+	private void split(Object p) {
 		//System.out.println(this.getClass().getName() + " splitting " + this);
 		containsObjects = false;
 		int chunckSpan = getSpan(span, bucketsFromSplit);
@@ -161,26 +186,43 @@ public class HashCollection implements I_Collection {
 		while (it.hasNext()) {
 			Object obj = it.next();
 			HashLocation objHash = (HashLocation) hashToLocations.get(counter);
-			putObjectInternal(chunckSpan, obj, objHash.getHash(), put);
+			putObjectInternal(chunckSpan, obj, objHash.getHash());
 			counter++;
 		}
 		
 		//add the new one
-		putObjectInternal(chunckSpan, p, hash, put);
+		if (p instanceof HashDupeCollection) {
+			HashDupeCollection hac = (HashDupeCollection) p;
+			Object internalHashObj = hac.get(0);
+			if (internalHashObj != null) {
+				putObjectInternal(chunckSpan, p, internalHashObj.hashCode());
+			}
+		} else {
+			putObjectInternal(chunckSpan, p, p.hashCode());
+		}
 	}
 
-	private void putObjectInternal(int chunckSpan, Object obj,
-			int objHash, boolean put) {
-		Integer bucket = getBucket(objHash, min, max, chunckSpan);
-		HashCollection hc = (HashCollection) splits[bucket.intValue()];
-		if (hc == null) {
-			throw new NullPointerException("No HashContainer found for bucket " + bucket);
-		}
-		if (put) {
-			hc.put(obj);
+	private void putObjectInternal(int chunckSpan, Object obj, int hash) {
+		if (obj instanceof HashDupeCollection) {
+			//do nothing
 		} else {
+			hash = obj.hashCode();
+		}
+		
+		Integer bucket = getBucket(hash, min, max, chunckSpan);
+		if (bucket == null) {
+			printNullBucketError(chunckSpan, hash);
+		} else {
+			HashCollection hc = (HashCollection) splits[bucket.intValue()];
+			if (hc == null) {
+				throw new NullPointerException("No HashContainer found for bucket " + bucket);
+			}
 			hc.add(obj);
 		}
+	}
+	private void printNullBucketError(int chunckSpan, int objHash) {
+		System.out.println("org.adligo.i.util.HashCollection null bucket for parameters objHash=" + 
+				objHash + ", min=" +min+", max=" +max+ ", chunckSpan=" + chunckSpan);
 	}
 	
 	
@@ -232,6 +274,13 @@ public class HashCollection implements I_Collection {
 		return null;
 	}
 	
+	/**
+	 * may return a ArrayCollection of objects
+	 * if more than one object added had the same hash code
+	 * 
+	 * @param hash
+	 * @return
+	 */
 	public Object get(int hash) {
 		if (containsObjects) {
 			if (hashToLocations == null) {
@@ -251,6 +300,34 @@ public class HashCollection implements I_Collection {
 			return hc.get(hash);
 		}
 		return null;
+	}
+	
+	public Object get(Object obj) {
+		int hash = obj.hashCode();
+		
+		Object toRet = null;
+		if (containsObjects) {
+			if (hashToLocations == null) {
+				return null;
+			}
+			I_Iterator it = hashToLocations.getIterator();
+			while (it.hasNext()) {
+				HashLocation hl = (HashLocation) it.next();
+				if (hash == hl.getHash()) {
+					toRet = objects.get(hl.getLocation());
+					break;
+				}
+			}
+		} else {
+			int chunckSpan = getSpan(span, bucketsFromSplit);
+			Integer bucket = getBucket(hash, min, max, chunckSpan);
+			HashCollection hc = (HashCollection) splits[bucket.intValue()];
+			toRet = hc.get(obj);
+		}
+		if (toRet instanceof ArrayCollection) {
+			return ((ArrayCollection) toRet).get(obj);
+		}
+		return toRet;
 	}
 	
 	public synchronized boolean remove(int hash) {
@@ -358,15 +435,51 @@ public class HashCollection implements I_Collection {
 		return objs;
 	}
 	
-	public boolean remove(Object o) {
-		return remove(((Integer) o).intValue());
+	public synchronized boolean remove(Object obj) {
+		int hash = obj.hashCode();
+		
+		if (containsObjects) {
+			if (hashToLocations == null) {
+				return false;
+			}
+			I_Iterator it = hashToLocations.getIterator();
+			while (it.hasNext()) {
+				HashLocation hl = (HashLocation) it.next();
+				if (hash == hl.getHash()) {
+					Object other = objects.get(hl.getLocation());
+					if (other instanceof HashDupeCollection) {
+						return ((HashDupeCollection) other).remove(obj);
+					} else {
+						return objects.remove(hl.getLocation());
+					}
+				}
+			}
+		} else {
+			int chunckSpan = getSpan(span, bucketsFromSplit);
+			Integer bucket = getBucket(hash, min, max, chunckSpan);
+			HashCollection hc = (HashCollection) splits[bucket.intValue()];
+			return hc.remove(obj);
+		}
+		return false;
 	}
 
 	public int size() {
 		if (containsObjects) {
 			if (objects == null) {
 				return 0;
-			}
+			} 
+			if (objects_contains_hash_dupe) {
+				int total = 0;
+				for (int i = 0; i < objects.size(); i++) {
+					Object o = objects.get(i);
+					if (o instanceof ArrayCollection) {
+						total = total + ((ArrayCollection) o).size();
+					} else {
+						total++;
+					}
+				}
+				return total;
+			} 
 			return objects.size();
 		} else  {
 			int total = 0;
