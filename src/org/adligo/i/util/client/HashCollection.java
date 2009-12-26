@@ -1,7 +1,11 @@
 package org.adligo.i.util.client;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
+/**
+ * NOT THREAD SAFE you must wrap with a Synchronizer
+ * 
+ * @author scott
+ *
+ */
 public class HashCollection implements I_Collection {
 	
 	//Math.abs(Integer.MIN_VALUE) = 2147483648
@@ -49,11 +53,11 @@ public class HashCollection implements I_Collection {
 	 */
 	private HashCollection[] splits;
 	
-	public synchronized boolean add(Object p) {
+	public  boolean add(Object p) {
 		//System.out.println(this.getClass().getName() + " adding" + p);
 		return putOrAdd(p);
 	}
-	public synchronized boolean put(Object p) {
+	public  boolean put(Object p) {
 		return putOrAdd(p);
 	}
 	
@@ -330,7 +334,7 @@ public class HashCollection implements I_Collection {
 		return toRet;
 	}
 	
-	public synchronized boolean remove(int hash) {
+	public  boolean remove(int hash) {
 		if (containsObjects) {
 			I_Iterator it = hashToLocations.getIterator();
 			while (it.hasNext()) {
@@ -435,7 +439,7 @@ public class HashCollection implements I_Collection {
 		return objs;
 	}
 	
-	public synchronized boolean remove(Object obj) {
+	public boolean remove(Object obj) {
 		int hash = obj.hashCode();
 		
 		if (containsObjects) {

@@ -2,6 +2,8 @@ package org.adligo.i.util.client;
 
 
 /**
+ * NOT THREAD SAFE, You must wrap with a synchronizer
+ * 
  * a simple collection implementaion that will 
  * work on GWT, J2ME and J2SE
  * 
@@ -59,7 +61,7 @@ public class ArrayCollection implements I_Collection {
 		elementData = new Object[1][secondArraySize];
 	}
   
-	public synchronized boolean add(Object o) {
+	public  boolean add(Object o) {
 		if (o == null) {
 			return false;
 		}
@@ -90,7 +92,7 @@ public class ArrayCollection implements I_Collection {
 		return null;
 	}
 
-	public synchronized void clear() {
+	public  void clear() {
 		clearInternal();
 	}
 
@@ -110,7 +112,7 @@ public class ArrayCollection implements I_Collection {
 	 * the regular Collections like List and Set
 	 * 
 	 */
-	public synchronized boolean remove(Object o) {
+	public  boolean remove(Object o) {
 		if (o == null) {
 			return false;
 		}
@@ -131,7 +133,7 @@ public class ArrayCollection implements I_Collection {
 		return true;
 	}
 
-	public synchronized boolean remove(int i) {
+	public  boolean remove(int i) {
 		Object toRemove = get(i);
 		return remove(toRemove);
 	}
