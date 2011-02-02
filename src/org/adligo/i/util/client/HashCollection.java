@@ -97,7 +97,7 @@ public class HashCollection implements I_Collection {
 	}
 	
 	private boolean forceAdd(int hash, Object p) {
-		if (p instanceof HashDupeCollection) {
+		try {
 			HashDupeCollection internalCollection = (HashDupeCollection) p;
 			Object objectWithHash = internalCollection.get(0);
 			if (objectWithHash == null) {
@@ -109,6 +109,8 @@ public class HashCollection implements I_Collection {
 			hashToLocations.add(new HashLocation(newHash, location.intValue()));
 			objects_contains_hash_dupe = true;
 			return true;
+		} catch (ClassCastException x) {
+			//do nothing;
 		}
 		HashLocation hl = getHashLocation(hash);
 		
@@ -116,13 +118,13 @@ public class HashCollection implements I_Collection {
 			int location = hl.getLocation();
 			Object obj = objects.get(location);
 			
-			if (obj instanceof HashDupeCollection) {
+			try {
 				HashDupeCollection ac = (HashDupeCollection) obj;
 				if (ac.contains(p)) {
 					return false;
 				}
 				ac.add(p);
-			} else {
+			} catch (ClassCastException x) {
 				if (obj.equals(p)) {
 					return false;
 				}
@@ -195,21 +197,21 @@ public class HashCollection implements I_Collection {
 		}
 		
 		//add the new one
-		if (p instanceof HashDupeCollection) {
+		try {
 			HashDupeCollection hac = (HashDupeCollection) p;
 			Object internalHashObj = hac.get(0);
 			if (internalHashObj != null) {
 				putObjectInternal(chunckSpan, p, internalHashObj.hashCode());
 			}
-		} else {
+		} catch (ClassCastException x) {
 			putObjectInternal(chunckSpan, p, p.hashCode());
 		}
 	}
 
 	private void putObjectInternal(int chunckSpan, Object obj, int hash) {
-		if (obj instanceof HashDupeCollection) {
-			//do nothing
-		} else {
+		try {
+			HashDupeCollection dupe = (HashDupeCollection) obj;
+		} catch (ClassCastException x) {
 			hash = obj.hashCode();
 		}
 		
@@ -328,8 +330,10 @@ public class HashCollection implements I_Collection {
 			HashCollection hc = (HashCollection) splits[bucket.intValue()];
 			toRet = hc.get(obj);
 		}
-		if (toRet instanceof ArrayCollection) {
+		try {
 			return ((ArrayCollection) toRet).get(obj);
+		} catch (ClassCastException x) {
+			//do nothing;
 		}
 		return toRet;
 	}
@@ -451,9 +455,9 @@ public class HashCollection implements I_Collection {
 				HashLocation hl = (HashLocation) it.next();
 				if (hash == hl.getHash()) {
 					Object other = objects.get(hl.getLocation());
-					if (other instanceof HashDupeCollection) {
+					try {
 						return ((HashDupeCollection) other).remove(obj);
-					} else {
+					} catch (ClassCastException x) {
 						return objects.remove(hl.getLocation());
 					}
 				}
@@ -476,9 +480,9 @@ public class HashCollection implements I_Collection {
 				int total = 0;
 				for (int i = 0; i < objects.size(); i++) {
 					Object o = objects.get(i);
-					if (o instanceof ArrayCollection) {
+					try {
 						total = total + ((ArrayCollection) o).size();
-					} else {
+					} catch (ClassCastException x) {
 						total++;
 					}
 				}

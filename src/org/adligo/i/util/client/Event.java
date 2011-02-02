@@ -87,9 +87,9 @@ public class Event implements I_Event  {
 			if (asString.length() <= 100) {
 				sb.append(asString);
 			} else {
-				if (source instanceof Class) {
+				try {
 					sb.append(ClassUtils.getClassShortName((Class) source));
-				} else {
+				} catch (ClassCastException x) {
 					sb.append(" instanceof" + ClassUtils.getClassShortName(source.getClass()));
 				}
 				sb.append("-HASH-");
