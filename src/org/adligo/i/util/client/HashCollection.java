@@ -331,7 +331,9 @@ public class HashCollection implements I_Collection {
 			toRet = hc.get(obj);
 		}
 		try {
-			return ((ArrayCollection) toRet).get(obj);
+			if (toRet != null) {
+				return ((ArrayCollection) toRet).get(obj);
+			}
 		} catch (ClassCastException x) {
 			//do nothing;
 		}
