@@ -11,20 +11,25 @@ package org.adligo.i.util.client;
 public class MapFactory  {
 	protected static I_Factory me;
 	protected static I_Factory imute_me;
+	protected static I_Factory sync_me;
 	
-	protected synchronized static void init(I_Factory in, I_Factory imutable_fact) throws Exception {
+	protected synchronized static void init(I_Factory in, I_Factory imutable_in, I_Factory sync_in) throws Exception {
 		if (in == null) {
 			throw new  Exception("" + ClassUtils.getClassName(MapFactory.class) +
 			" can't accept a null in parameter.");
 		}
-		if (imutable_fact == null) {
+		if (imutable_in == null) {
 			throw new  Exception("" + ClassUtils.getClassName(MapFactory.class) +
-			" can't accept a null imutable_fact parameter.");
+			" can't accept a null imutable_in parameter.");
 		}
-		
+		if (sync_in == null) {
+			throw new  Exception("" + ClassUtils.getClassName(MapFactory.class) +
+			" can't accept a null sync_in parameter.");
+		}
 		if (me == null) {
 			me = in;
-			imute_me = imutable_fact;
+			imute_me = imutable_in;
+			sync_me = sync_in;
 		} else  {
 			throw new Exception("" + ClassUtils.getClassName(MapFactory.class) +
 					" has already been initalized.");
@@ -66,6 +71,19 @@ public class MapFactory  {
 		return (I_Map) me.createNew(null);
 	}
 
+	/**
+	 * create a default map implementation
+	 * should synchronized on writes only if possible
+	 * (aka wrap java.util.concurrent.ConcurrentHashMap)
+	 * @return
+	 */
+	public static I_Map createSync() {
+		if (sync_me == null) {
+			printImNull();
+		}
+		return (I_Map) sync_me.createNew(null);
+	}
+	
 	private static void printImNull() {
 		try {
 			throw new NullPointerException("Please initalize your Platform first see J2SEPlatform," +

@@ -1,8 +1,8 @@
 package org.adligo.i.util.client;
 
 public interface I_ImmutableMap {
-	I_Iterator getIterator();
-	I_Iterator keys();
+	I_Iterator getKeysIterator();
+	I_Iterator getValuesIterator();
 	int size();
 	boolean containsKey(Object key); 
 	boolean containsValue(Object value);
