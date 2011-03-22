@@ -166,12 +166,12 @@ public class HashCollection implements I_Collection {
 		for (int i = 0; i < bucketsFromSplit; i++) {
 			if (next <= Integer.MAX_VALUE) {
 				HashCollection hc = new HashCollection();
-				hc.min = new Long(next).intValue();
+				hc.min = (int) next;
 				long nextMax = new Long(hc.min).longValue() + new Long(chunckSpan).longValue();
 				if (nextMax >= Integer.MAX_VALUE) {
 					hc.max = Integer.MAX_VALUE;
 				} else  {
-					hc.max = new Long(nextMax).intValue();
+					hc.max = (int) nextMax;
 				}
 				hc.depth = (short) (depth + 1);
 				hc.max_depth = max_depth;

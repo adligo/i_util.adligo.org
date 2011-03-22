@@ -78,7 +78,8 @@ public class Event implements I_Event  {
 	}
 	
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		//jme uses StringBuffer
+		StringBuffer sb = new StringBuffer();
 		sb.append("Event [source=");
 		if (source == null) {
 			sb.append("null");
