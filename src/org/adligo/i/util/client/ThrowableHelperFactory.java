@@ -10,11 +10,11 @@ package org.adligo.i.util.client;
 public class ThrowableHelperFactory {
 	protected static I_ThrowableHelper helper;
 	
-	public void fillInStackTrace(Throwable p) {
+	public static void fillInStackTrace(Throwable p) {
 		helper.fillInStackTrace(p);
 	}
 
-	public String getStackTraceAsString(Throwable p) {
+	public static String getStackTraceAsString(Throwable p) {
 		return helper.getStackTraceAsString(p);
 	}
 
