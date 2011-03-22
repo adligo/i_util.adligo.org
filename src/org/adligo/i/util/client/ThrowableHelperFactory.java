@@ -26,4 +26,10 @@ public class ThrowableHelperFactory {
 		helper = p;
 	}
 	
+	public static boolean isInit() {
+		if (helper == null) {
+			return false;
+		}
+		return true;
+	}
 }
