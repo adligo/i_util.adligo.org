@@ -7,8 +7,8 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public class ExceptionHelperFactory {
-	protected static I_ExceptionHelper helper;
+public class ThrowableHelperFactory {
+	protected static I_ThrowableHelper helper;
 	
 	public void fillInStackTrace(Throwable p) {
 		helper.fillInStackTrace(p);
@@ -18,9 +18,9 @@ public class ExceptionHelperFactory {
 		return helper.getStackTraceAsString(p);
 	}
 
-	protected synchronized static void init(I_ExceptionHelper p) throws Exception {
+	protected synchronized static void init(I_ThrowableHelper p) throws Exception {
 		if (p == null) {
-			throw new  Exception("" + ClassUtils.getClassName(ExceptionHelperFactory.class) +
+			throw new  Exception("" + ClassUtils.getClassName(ThrowableHelperFactory.class) +
 			" can't accept a null in parameter.");
 		}
 		helper = p;
