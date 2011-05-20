@@ -28,6 +28,17 @@ public class Event implements I_Event  {
 		source = p_source;
 	}
 	
+	public Event(Object p_source, Object p_value) {
+		source = p_source;
+		value = p_value;
+	}	
+	
+	public Event(Object p_source, Object p_value, Throwable p_throw) {
+		source = p_source;
+		value = p_value;
+		exception = p_throw;
+	}		
+	
 	public Event(I_Event p) {
 		original = p;
 		source = original.getSource();
