@@ -9,4 +9,9 @@ package org.adligo.i.util.client;
  */
 public interface I_StringAppender {
 	public void append(String p);
+	/**
+	 * note this shoud do something simmilar to StringBuilder or StringBuffer 
+	 * @return
+	 */
+	public String toString();
 }

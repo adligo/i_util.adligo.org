@@ -10,26 +10,15 @@ package org.adligo.i.util.client;
  */
 public class AppenderFactory  {
 	protected static I_Factory me;
-	protected static I_Factory imute_me;
-	protected static I_Factory sync_me;
 	
-	protected synchronized static void init(I_Factory in, I_Factory imutable_in, I_Factory sync_in) throws Exception {
+	protected synchronized static void init(I_Factory in) throws Exception {
 		if (in == null) {
 			throw new  Exception("" + ClassUtils.getClassName(AppenderFactory.class) +
 			" can't accept a null in parameter.");
 		}
-		if (imutable_in == null) {
-			throw new  Exception("" + ClassUtils.getClassName(AppenderFactory.class) +
-			" can't accept a null imutable_in parameter.");
-		}
-		if (sync_in == null) {
-			throw new  Exception("" + ClassUtils.getClassName(AppenderFactory.class) +
-			" can't accept a null sync_in parameter.");
-		}
+
 		if (me == null) {
 			me = in;
-			imute_me = imutable_in;
-			sync_me = sync_in;
 		} else  {
 			throw new Exception("" + ClassUtils.getClassName(AppenderFactory.class) +
 					" has already been initalized.");
