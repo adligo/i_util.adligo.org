@@ -18,6 +18,18 @@ public class ThrowableHelperFactory {
 		return helper.getStackTraceAsString(p);
 	}
 
+	/**
+	 * 
+	 * @param preText allows for tabs (\t) before each line for indenting
+	 * @param p
+	 * @param lineFeed the characters to add at the end of each line 
+	 * 				(allows for dos or unix line feeds)
+	 * @return
+	 */
+	public static String getStackTraceAsString(String preText, Throwable p, String lineFeed) {
+		return helper.getStackTraceAsString(p);
+	}
+	
 	protected synchronized static void init(I_ThrowableHelper p) throws Exception {
 		if (p == null) {
 			throw new  Exception("" + ClassUtils.getClassName(ThrowableHelperFactory.class) +

@@ -9,5 +9,5 @@ public interface I_ThrowableHelper {
 	 * @param lineFeed allows for swapping out of unix or dos line feeds
 	 * @return
 	 */
-	public String getStackTraceAsString(String preText, Throwable p, String lineFeed);
+	public String getStackTraceAsString(String preText, Throwable p, String lineFeed, I_StringAppender appender);
 }
