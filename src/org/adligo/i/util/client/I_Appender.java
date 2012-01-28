@@ -7,7 +7,7 @@ package org.adligo.i.util.client;
  * @author scott
  *
  */
-public interface I_Appender extends Appendable {
+public interface I_Appender {
 	public void append(Object p);
 	public void append(int p);
 	public void append(boolean p);
