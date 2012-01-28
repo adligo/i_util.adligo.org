@@ -34,11 +34,11 @@ public class AppenderFactory  {
 	 * for use on a single thread
 	 * @return
 	 */
-	public static I_StringAppender create() {
+	public static I_Appender create() {
 		if (me == null) {
 			printImNull();
 		}
-		return (I_StringAppender) me.createNew(null);
+		return (I_Appender) me.createNew(null);
 	}
 
 	private static void printImNull() {

@@ -26,7 +26,7 @@ public class ThrowableHelperFactory {
 	 * 				(allows for dos or unix line feeds)
 	 * @return
 	 */
-	public static String getStackTraceAsString(String preText, Throwable p, String lineFeed, I_StringAppender appender) {
+	public static String getStackTraceAsString(String preText, Throwable p, String lineFeed, I_Appender appender) {
 		return helper.getStackTraceAsString(preText, p, lineFeed, appender);
 	}
 	
