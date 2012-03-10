@@ -14,15 +14,14 @@ import java.util.Date;
  *
  */
 public class CommonTime {
-	public static final String THE_DAY_OF_THE_MONTH_MUST_BE_GREATER_THAN_ZERO = "The day of the month must be greater than zero.";
-	public static final String MONTH_OVERFLOW_THREE = "the number of days in the month ";
-	private static final String MONTH_OVERFLOW_TWO = " is greater than ";
-	public static final String MONTH_OVERFLOW_ONE = "the day of the month ";
+	public static final String THE_MONTH_PASSED_IN_TO_GET_DAYS_IN_MONT_IS_NOT_BETWEEN_1_AND_12 = "The month passed in to getDaysInMont is not between 1 and 12?";
 	public static final String DEFAULT_TIME_FORMAT = "h:mm a";
 	public static final String DEFAULT_TIME_DETAIL_FORMAT = "h:mm:ss SSS a";
 	public static final String DEFAULT_DATE_FORMAT = "MM/dd/yy";
-	public static final String DEFAULT_DATE_TIME_FORMAT = "MM/dd/yy h:mm a SSS";
-	public static final String DEFAULT_DATE_TIME_TIMEZONE_FORMAT = "MM/dd/yy h:mm a SSS Z";
+	public static final String FULL_YEAR_DATE_FORMAT = "MM/dd/yyyy";
+	public static final String DEFAULT_DATE_TIME_FORMAT = "MM/dd/yy hh:mm a SSS";
+	public static final String FULL_YEAR_TIME_FORMAT = "MM/dd/yyyy hh:mm a SSS";
+	public static final String DEFAULT_DATE_TIME_TIMEZONE_FORMAT = "MM/dd/yy hh:mm a SSS Z";
 	
 	public static final int ONE_MINUTE = 60 * 1000;
 	public static final int THREE_MINUTES = 3 * 60 * 1000;
@@ -43,6 +42,14 @@ public class CommonTime {
 	public static final short OCTOBER = 10;
 	public static final short NOVEMBER = 11;
 	public static final short DECEMBER = 12;
+	
+	public static final short MONDAY = 1;
+	public static final short TUESDAY = 2;
+	public static final short WENSDAY = 3;
+	public static final short THURSDAY = 4;
+	public static final short FRIDAY = 5;
+	public static final short SATURDAY = 6;
+	public static final short SUNDAY = 7;
 	
 	private CommonTime() {}
 	
@@ -100,7 +107,8 @@ public class CommonTime {
 			case DECEMBER:
 				return 31;
 		}
-		throw new IllegalArgumentException("The month passed in to getDaysInMont is not between 1 and 12?");
+		throw new IllegalArgumentException(
+				THE_MONTH_PASSED_IN_TO_GET_DAYS_IN_MONT_IS_NOT_BETWEEN_1_AND_12);
 	}
 	
 	public static boolean isLeapYear(int year) {
@@ -135,25 +143,4 @@ public class CommonTime {
 		return toRet;
 	}
 	
-	public static int getDayOfYear( int year, int month, int dayOfMonth) {
-		return getDayOfYear(year, (short) month, (short) dayOfMonth);
-	}
-	
-	public static int getDayOfYear(int year, short month, short dayOfMonth) {
-		if (dayOfMonth <= 0) {
-			throw new IllegalArgumentException(THE_DAY_OF_THE_MONTH_MUST_BE_GREATER_THAN_ZERO);
-		}
-		int total = 0;
-		for (short i = 1; i < month; i++) {
-			total = total + getDaysInMonth(i, year);
-		}
-		short daysInMonth = getDaysInMonth(month, year);
-		if (dayOfMonth > daysInMonth) {
-			throw new IllegalArgumentException(MONTH_OVERFLOW_ONE + dayOfMonth + 
-					MONTH_OVERFLOW_TWO +
-					MONTH_OVERFLOW_THREE + daysInMonth);
-		}
-		total = total + dayOfMonth;
-		return total;
-	}
 }
