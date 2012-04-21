@@ -16,6 +16,7 @@ public interface I_Appender {
 	public void append(long p);
 	public void append(double p);
 	public void append(float p);
+	public void append(char p);
 	
 	public void append(String p);
 	/**
