@@ -149,9 +149,18 @@ public class DateTime {
 		I_TextFormatter formatter = TextFormatter.getInstance();
 		String toRet = formatter.formatDate(FULL_YEAR_TIME_FORMAT, timestamp);
 		//note this appears to be a bug introduced in GWT 2.4.0 which differs from
-		//the doc
-		toRet = toRet.replaceAll("ap.m.", "PM");
-		toRet = toRet.replaceAll("aa.m.", "AM");
+		//the doc, and CLDC 1.1 doesn't have replaceAll grr
+		int indexStart = toRet.indexOf("ap.m.");
+		if (indexStart == -1) {
+			indexStart = toRet.indexOf("aa.m.");
+			if (indexStart != -1) {
+				toRet = toRet.substring(0, indexStart) + "AM"
+					+ toRet.substring(indexStart + 5, toRet.length());
+			}
+		} else {
+			toRet = toRet.substring(0, indexStart) + "PM"
+			+ toRet.substring(indexStart + 5, toRet.length());
+		}
 		return toRet;
 	}
 	
