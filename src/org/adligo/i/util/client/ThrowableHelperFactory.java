@@ -14,10 +14,6 @@ public class ThrowableHelperFactory {
 		helper.fillInStackTrace(p);
 	}
 
-	public static String getStackTraceAsString(Throwable p) {
-		return helper.getStackTraceAsString(p);
-	}
-
 	/**
 	 * 
 	 * @param preText allows for tabs (\t) before each line for indenting
@@ -26,8 +22,8 @@ public class ThrowableHelperFactory {
 	 * 				(allows for dos or unix line feeds)
 	 * @return
 	 */
-	public static String getStackTraceAsString(String preText, Throwable p, String lineFeed, I_Appender appender) {
-		return helper.getStackTraceAsString(preText, p, lineFeed, appender);
+	public static void appendStackTracesString(String preText, Throwable p, String lineFeed, I_Appender appender) {
+		helper.appendStackTracesString(preText, p, lineFeed, appender);
 	}
 	
 	protected synchronized static void init(I_ThrowableHelper p) throws Exception {
