@@ -147,7 +147,11 @@ public class DateTime {
 	}
 	public String toString() {
 		I_TextFormatter formatter = TextFormatter.getInstance();
-		String toRet = formatter.formatDate(FULL_YEAR_TIME_FORMAT, timestamp);	
+		String toRet = formatter.formatDate(FULL_YEAR_TIME_FORMAT, timestamp);
+		//note this appears to be a bug introduced in GWT 2.4.0 which differs from
+		//the doc
+		toRet = toRet.replaceAll("ap.m.", "PM");
+		toRet = toRet.replaceAll("aa.m.", "AM");
 		return toRet;
 	}
 	
