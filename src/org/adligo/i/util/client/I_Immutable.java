@@ -1,7 +1,5 @@
 package org.adligo.i.util.client;
 
-import java.io.Serializable;
-
 /**
  * this is simply a marker interface which shows the xml_io_generator
  * project how to write immutable objects to and from xml.
@@ -13,7 +11,7 @@ import java.io.Serializable;
  * @author scott
  *
  */
-public interface I_Immutable extends Serializable {
+public interface I_Immutable  {
 	/**
 	 * the java field name which should be used to serialize the object.
 	 * NOTE if this field is a String or other primitive wrapper (Integer, Long exc)
