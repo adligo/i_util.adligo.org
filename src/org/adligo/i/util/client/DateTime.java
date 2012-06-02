@@ -19,11 +19,11 @@ public class DateTime {
 	public static final String THE_MONTH_PASSED_IN_TO_GET_DAYS_IN_MONT_IS_NOT_BETWEEN_1_AND_12 = "The month passed in to getDaysInMont is not between 1 and 12?";
 	public static final String DEFAULT_TIME_FORMAT = "h:mm a";
 	public static final String DEFAULT_TIME_DETAIL_FORMAT = "h:mm:ss SSS a";
-	public static final String DEFAULT_DATE_FORMAT = "MM/dd/yy";
+	public static final String DEFAULT_DATE_FORMAT = "MM/dd/yyyy";
 	public static final String FULL_YEAR_DATE_FORMAT = "MM/dd/yyyy";
-	public static final String DEFAULT_DATE_TIME_FORMAT = "MM/dd/yy hh:mm a SSS";
+	public static final String DEFAULT_DATE_TIME_FORMAT = "MM/dd/yyyy hh:mm a SSS";
 	public static final String FULL_YEAR_TIME_FORMAT = "MM/dd/yyyy hh:mm a SSS";
-	public static final String DEFAULT_DATE_TIME_TIMEZONE_FORMAT = "MM/dd/yy hh:mm a SSS Z";
+	public static final String DEFAULT_DATE_TIME_TIMEZONE_FORMAT = "MM/dd/yyyy hh:mm a SSS Z";
 	
 	public static final int ONE_MINUTE = 60 * 1000;
 	public static final int THREE_MINUTES = 3 * 60 * 1000;
@@ -58,6 +58,11 @@ public class DateTime {
 
 	public DateTime(long p) {
 		timestamp = p;
+	}
+	
+	public DateTime(String value) throws IllegalArgumentException {
+		I_DateTimeParser parser = DateTimeParserFactory.create();
+		timestamp = parser.parse(DEFAULT_DATE_TIME_FORMAT, value);
 	}
 	
 	public int getYear() {
