@@ -248,4 +248,8 @@ public class DateTime {
 	public long getTime() {
 		return timestamp;
 	}
+	
+	public Long getTimeLong() {
+		return new Long(timestamp);
+	}
 }
