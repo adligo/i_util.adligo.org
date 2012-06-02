@@ -244,4 +244,8 @@ public class DateTime {
 		int toRet = 337 + getDaysInMonth(FEBUARY, year);
 		return toRet;
 	}
+	
+	public long getTime() {
+		return timestamp;
+	}
 }
