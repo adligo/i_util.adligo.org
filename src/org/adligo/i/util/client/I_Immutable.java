@@ -13,6 +13,10 @@ package org.adligo.i.util.client;
  */
 public interface I_Immutable  {
 	/**
+	 * the new standard to return from the getImmutableFieldName method
+	 */
+	public static final String MUTANT = "mutant";
+	/**
 	 * the java field name which should be used to serialize the object.
 	 * NOTE if this field is a String or other primitive wrapper (Integer, Long exc)
 	 * the toString method will be used when writing the xml.
