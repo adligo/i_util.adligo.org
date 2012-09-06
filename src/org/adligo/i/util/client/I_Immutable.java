@@ -13,13 +13,14 @@ package org.adligo.i.util.client;
  */
 public interface I_Immutable  {
 	/**
-	 * the new standard to return from the getImmutableFieldName method
-	 */
-	public static final String MUTANT = "mutant";
-	/**
 	 * the java field name which should be used to serialize the object.
 	 * NOTE if this field is a String or other primitive wrapper (Integer, Long exc)
 	 * the toString method will be used when writing the xml.
+	 * 
+	 * Note the Adligo xml_io code generation has issues if parent/child classes 
+	 * have a variable with the same name.  Also I believe GWT RPC seriliation does
+	 * so try to make this unique to your class.
+	 * 
 	 * @return
 	 */
 	public String getImmutableFieldName();
