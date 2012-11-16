@@ -153,6 +153,16 @@ public class DateTime {
 	public String toString() {
 		I_TextFormatter formatter = TextFormatter.getInstance();
 		String toRet = formatter.formatDate(FULL_YEAR_TIME_FORMAT, timestamp);
+		return toStringFix(toRet);
+	}
+
+	/**
+	 * note this appears to be a bug introduced in GWT 2.4.0 which differs from
+	 * the doc, and CLDC 1.1 doesn't have replaceAll grr
+	 * @param toRet
+	 * @return
+	 */
+	protected String toStringFix(String toRet) {
 		//note this appears to be a bug introduced in GWT 2.4.0 which differs from
 		//the doc, and CLDC 1.1 doesn't have replaceAll grr
 		int indexStart = toRet.indexOf("ap.m.");
@@ -170,13 +180,16 @@ public class DateTime {
 	}
 	
 	public static String formatDateTime(long date) {
-		I_TextFormatter formatter = TextFormatter.getInstance();
-		return formatter.formatDate(DEFAULT_DATE_TIME_FORMAT, date);
+		return formatDate(DEFAULT_DATE_TIME_FORMAT, date);
 	}
 	
 	public static String formatDate(long date) {
+		return formatDate(DEFAULT_DATE_FORMAT, date);
+	}
+	
+	public static String formatDate(String format, long date) {
 		I_TextFormatter formatter = TextFormatter.getInstance();
-		return formatter.formatDate(DEFAULT_DATE_FORMAT, date);
+		return formatter.formatDate(format, date);
 	}
 	
 	public static short getDaysInMonth(short month, int year) {
@@ -251,5 +264,13 @@ public class DateTime {
 	
 	public Long getTimeLong() {
 		return new Long(timestamp);
+	}
+	
+	public long getDayStart() {
+		return new DateTime("" + getMonth() + "/" + getDayOfMonth() + "/" + getYear() + " 12:00 AM 000").getTime();
+	}
+	
+	public long getDayEnd() {
+		return new DateTime("" + getMonth() + "/" + getDayOfMonth() + "/" + getYear() + " 11:59 PM 999").getTime();
 	}
 }
