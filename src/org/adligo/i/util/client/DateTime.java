@@ -267,10 +267,17 @@ public class DateTime {
 	}
 	
 	public long getDayStart() {
-		return new DateTime("" + getMonth() + "/" + getDayOfMonth() + "/" + getYear() + " 12:00 AM 000").getTime();
+		short month = getMonth();
+		short dom = getDayOfMonth();
+		int year = getYear();
+		return new DateTime("" + month + "/" + dom + "/" + year + " 12:00 AM 000").getTime();
 	}
 	
 	public long getDayEnd() {
-		return new DateTime("" + getMonth() + "/" + getDayOfMonth() + "/" + getYear() + " 11:59 PM 999").getTime();
+		DateTime dt = new DateTime(getTime() + ONE_DAY);
+		short month = dt.getMonth();
+		short dom = dt.getDayOfMonth();
+		int year = dt.getYear();
+		return new DateTime("" + month + "/" + dom + "/" + year + " 12:00 AM 000").getTime() - 1L;
 	}
 }
