@@ -6,7 +6,7 @@ public class SystemOutput implements I_SystemOutput {
 	private SystemOutput() {}
 	
 	public void err(String p) {
-		System.err.println(p);
+		System.err.print(p);
 	}
 
 	public void exception(Throwable x) {
@@ -14,7 +14,7 @@ public class SystemOutput implements I_SystemOutput {
 	}
 
 	public void out(String p) {
-		System.out.println(p);
+		System.out.print(p);
 	}
 
 }
