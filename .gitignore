@@ -1,0 +1,15 @@
+classes/
+deployed/
+classes_e/
+.eclipseme.tmp/
+.gwt-cache/
+bin/
+GwtCompile.cmd
+*.tmp
+preverified.
+tmp/
+i_util.jar
+.mtj.tmp
+foo.txt
+i_util.jad
+j2me_src/
