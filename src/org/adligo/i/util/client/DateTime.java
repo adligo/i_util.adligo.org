@@ -56,6 +56,13 @@ public class DateTime {
 	
 	private long timestamp;
 
+	public DateTime(Long p) {
+		if (p == null) {
+			throw new NullPointerException("DateTime requires non null constructor parameter.");
+		}
+		timestamp = p.longValue();
+	}
+	
 	public DateTime(long p) {
 		timestamp = p;
 	}
@@ -274,7 +281,7 @@ public class DateTime {
 	}
 	
 	public long getDayEnd() {
-		DateTime dt = new DateTime(getTime() + ONE_DAY);
+		DateTime dt = new DateTime(new Long(getTime() + ONE_DAY));
 		short month = dt.getMonth();
 		short dom = dt.getDayOfMonth();
 		int year = dt.getYear();
