@@ -27,7 +27,6 @@ public class ArrayCollection implements I_Collection {
 		}
 		return result;
 	}
-	private static final int DIM_2 = 100;
 	
 	private int secondArraySize = 100;
 	/**
@@ -152,7 +151,7 @@ public class ArrayCollection implements I_Collection {
 		
 		int counter = 0;
 		for (int i = 0; i < elementData.length; i++) {
-			for (int j = 0; j < DIM_2; j++) {
+			for (int j = 0; j < secondArraySize; j++) {
 				Object item = elementData[i][j];
 				if (item == null) {
 					i =  elementData.length;
