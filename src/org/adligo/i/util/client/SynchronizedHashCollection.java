@@ -52,11 +52,11 @@ public class SynchronizedHashCollection implements I_HashCollection {
 	}
 
 	public synchronized Object get(int i) {
-		return get(i);
+		return other.get(i);
 	}
 
 	public synchronized Object get(Object obj) {
-		return get(obj);
+		return other.get(obj);
 	}
 	
 }
