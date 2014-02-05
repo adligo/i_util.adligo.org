@@ -1,7 +1,19 @@
 package org.adligo.i.util.client;
 
+/**
+ * This is a helper class to HashCollection
+ * 
+ * @author scott
+ *
+ */
 public class HashLocation {
+	/**
+	 * the hash code of the Object HashCollection is dealing with
+	 */
 	private int hash;
+	/**
+	 * the index to find the Object in in the HashCollection
+	 */
 	private int location;
 	
 	public HashLocation(int p_hash, int p_location) {

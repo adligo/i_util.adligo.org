@@ -2,11 +2,27 @@ package org.adligo.i.util.client;
 
 /**
  * NOT THREAD SAFE you must wrap with a Synchronizer
- * 
+ * This is a collection
+ * which starts out fairly simple
+ * 		Objects go in and are tracked by hashToLocations
+ *      they are referenced from objects 
+ *      so the HashLocation's location attribute pertains to the index in the object ArrayCollection
+ *     
+ *     After you add enough objects to this class (more than chunkSize)
+ *     it mutates it self so that object are now referenced from  
+ *     splits so by default there will be 16 HashCollections children of this.
+ *       These child HashCollections are sometimes referred to as buckets in the code
+ *     
+ *     
+ *     Then when a object is looked up 
+ *     the following operation occurs;
+ *     hashCode is used to determine which bucket
+ *     		and get recurses into the child HashCollection repeating the logic.
+ *     
  * @author scott
  *
  */
-public class HashCollection implements I_Collection {
+public class HashCollection implements I_Collection, I_HashCollection {
 	
 	//Math.abs(Integer.MIN_VALUE) = 2147483648
 	// but java wouln't compute it :(
@@ -37,19 +53,25 @@ public class HashCollection implements I_Collection {
 	private int bucketsFromSplit = 16;
 	
 	/**
-	 * if true the object array collection contains objects
+	 * if true the object ArrayCollection contains objects
 	 * if false the objects are in the splits (HashContainers)
 	 */
 	private boolean containsObjects = true;
 	
 	/**
-	 * HashLocation's
+	 * A collection of HashLocation's
 	 */
 	private ArrayCollection hashToLocations;
+	/**
+	 * This may contain the objects directly
+	 * @see containsObjects
+	 */
 	private ArrayCollection objects;
 	private boolean objects_contains_hash_dupe = false;
 	/**
 	 * HashContainers
+	 * This may contain the objects 
+	 * @see containsObjects
 	 */
 	private HashCollection[] splits;
 	

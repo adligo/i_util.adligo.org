@@ -1,9 +1,9 @@
 package org.adligo.i.util.client;
 
-public class SynchronizedCollection implements I_Collection {
-	I_Collection other;
+public class SynchronizedHashCollection implements I_HashCollection {
+	I_HashCollection other;
 	
-	public SynchronizedCollection(I_Collection p) {
+	public SynchronizedHashCollection(I_HashCollection p) {
 		other = p;
 	}
 
@@ -44,8 +44,19 @@ public class SynchronizedCollection implements I_Collection {
 	}
 
 	public synchronized boolean contains(Object p) {
-		// TODO Auto-generated method stub
 		return other.contains(p);
+	}
+
+	public synchronized boolean put(Object o) {
+		return other.put(o);
+	}
+
+	public synchronized Object get(int i) {
+		return get(i);
+	}
+
+	public synchronized Object get(Object obj) {
+		return get(obj);
 	}
 	
 }
