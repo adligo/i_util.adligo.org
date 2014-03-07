@@ -9,9 +9,9 @@ package org.adligo.i.util.shared;
  *
  */
 public class AppenderFactory  {
-	protected static I_Factory me;
+	protected static I_AppenderFactory me;
 	
-	protected synchronized static void init(I_Factory in) throws Exception {
+	protected synchronized static void init(I_AppenderFactory in) throws Exception {
 		if (in == null) {
 			throw new  Exception("" + ClassUtils.getClassName(AppenderFactory.class) +
 			" can't accept a null in parameter.");
@@ -28,6 +28,18 @@ public class AppenderFactory  {
 	}
 	
 
+	/**
+	 * note GWT doesn't support System.getProperty("line.separator");
+	 * but it is what is needed on shared code (logging!)
+	 * so this 
+	 * @return
+	 */
+	public static String lineSeperator() {
+		if (me == null) {
+			printImNull();
+		}
+		return me.lineSeperator();
+	}
 	
 	/**
 	 * create a new string appender 
