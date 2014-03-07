@@ -6,5 +6,5 @@ public interface I_AppenderFactory extends I_Factory {
 	 * so this is my solution to this problem
 	 * @return
 	 */
-	public String lineSeperator();
+	public String getLineSeperator();
 }

@@ -38,7 +38,7 @@ public class AppenderFactory  {
 		if (me == null) {
 			printImNull();
 		}
-		return me.lineSeperator();
+		return me.getLineSeperator();
 	}
 	
 	/**
