@@ -34,14 +34,7 @@ public class AppenderFactory  {
 	 * so this 
 	 * @return
 	 */
-	public static String lineSeperatorAsString() {
-		if (me == null) {
-			printImNull();
-		}
-		return new String(new char [] {me.getLineSeperator()});
-	}
-	
-	public static char lineSeperator() {
+	public static String lineSeperator() {
 		if (me == null) {
 			printImNull();
 		}
