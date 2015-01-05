@@ -1,9 +1,10 @@
+/bin/
+/build/
 classes/
-deployed/
-classes_e/
+/classes_e/
+/deployed/
 .eclipseme.tmp/
 .gwt-cache/
-bin/
 GwtCompile.cmd
 *.tmp
 preverified.
